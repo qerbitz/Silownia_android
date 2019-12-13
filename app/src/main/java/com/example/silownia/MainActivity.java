@@ -19,16 +19,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    DatabaseHelper myDB;
-    ListView filterList = null;
-    Button btnView;
-
-    private static final ExercisesDAO cwiczenia = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.add_training);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -59,17 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
-
-
-    public void showData(View view){
-        Intent intent = new Intent(getApplicationContext(), HistoryFragment.class);
-        startActivity(intent);
-    }
-
-    public void addData(View view){
-        Intent intent = new Intent(getApplicationContext(), TrainingFragment.class);
-        startActivity(intent);
-    }
+    
 
 
 
