@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Silownia</string>
+    <string name="title_activity_xdddd">xdddd</string>
+    <string name="Training">Training</string>
+    <string name="Weight">Weight</string>
+    <string name="History">History</string>
+    <string name="Exit">Exit</string>
+    <string name="Resttime">Rest time</string>
+</resources>
