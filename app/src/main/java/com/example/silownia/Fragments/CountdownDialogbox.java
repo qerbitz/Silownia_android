@@ -6,55 +6,38 @@ import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
-import android.preference.PreferenceManager;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.easyfitness.utils.AlarmReceiver;
-import com.easyfitness.utils.UnitConverter;
 import com.example.silownia.R;
-import com.github.lzyzsd.circleprogress.DonutProgress;
 
-import java.text.DecimalFormat;
-
-import gr.antoniom.chronometer.Chronometer;
-import gr.antoniom.chronometer.Chronometer.OnChronometerTickListener;
+import java.util.Locale;
 
 public class CountdownDialogbox extends Dialog implements
     View.OnClickListener {
 
+    private CountDownTimer mCountDownTimer;
+    private boolean mTimerRunning;
+
+
     public Activity activity;
     public Dialog d;
     public Button exit;
-    public TextView chronoValue;
-    public Chronometer chrono;
-    private int iRestTime = 60;
+    public TextView timeText;
+    private long RestTime;
 
 
-    private OnChronometerTickListener onChronometerTick = new OnChronometerTickListener() {
-        boolean bFirst = true;
-        @Override
-        public void onChronometerTick(Chronometer chronometer) {
-            int secElapsed = (int) (chrono.getTimeElapsed() / 1000); //secElapsed is a negative value
-
-            if (secElapsed >= 0) {
-                chrono.stop();
-                dismiss();
-            }
-        }
-    };
 
     public CountdownDialogbox(Activity a, int pRestTime) {
         super(a);
         this.activity = a;
-        iRestTime = pRestTime;
-
-
+        RestTime = pRestTime*1000;
     }
 
     @Override
@@ -67,30 +50,63 @@ public class CountdownDialogbox extends Dialog implements
 
 
         exit = findViewById(R.id.btn_exit);
-        chronoValue = findViewById(R.id.chronoValue);
+        timeText= findViewById(R.id.timeText);
         exit.setOnClickListener(this);
 
 
-        //SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getContext());
-        //int defaultUnit = Integer.valueOf(SP.getString("defaultUnit", "0"));
+        startTimer();
 
+        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
 
-        chrono.setOnChronometerTickListener(onChronometerTick);
-        chrono.setBase(SystemClock.elapsedRealtime() + (iRestTime + 1) * 1000);
-        chrono.setPrecision(false);
-        chrono.start();
-
-        setOnDismissListener(onDismissChrono);
 
     }
+
+    public void vibration(){
+        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            v.vibrate(500);
+        }
+    }
+
+
+    private void startTimer() {
+        mCountDownTimer = new CountDownTimer(RestTime, 1000) {
+            @Override
+            public void onTick(long s_to_end) {
+                RestTime = s_to_end;
+                updateCountDownText();
+                if(RestTime<=5000)vibration();
+            }
+
+            @Override
+              public void onFinish() {
+              mTimerRunning = false;
+              dismiss();
+              }
+              }.start();
+
+             mTimerRunning = true;
+        }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_exit) {
-            chrono.stop();
-            chrono.setText("00:00");
+            //chrono.stop();
+           // chrono.setText("00:00");
             dismiss();
+
         }
+    }
+
+    private void updateCountDownText() {
+        int minutes = (int) (RestTime / 1000) / 60;
+        int seconds = (int) (RestTime / 1000) % 60;
+
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+
+        timeText.setText(timeLeftFormatted);
     }
 
 

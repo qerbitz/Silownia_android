@@ -29,7 +29,7 @@
             custom:donut_show_text="false" />
 
         <TextView
-            android:id="@+id/chronoValue"
+            android:id="@+id/timeText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

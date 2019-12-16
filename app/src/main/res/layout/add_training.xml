@@ -305,7 +305,8 @@
                             android:layout_marginEnd="8dp"
                             android:ems="4"
                             android:inputType="none|number"
-                            android:text="60" />
+                            android:text="60"
+                            android:gravity="center"/>
 
                     </LinearLayout>
 

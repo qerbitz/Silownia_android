@@ -35,21 +35,25 @@ import java.util.Date;
 public class TrainingFragment extends Fragment {
     public int exercise_ID;
     EditText editSerie, editRepetition, editWeight;
+
     SQLiteDatabase sqLiteDatabase;
     Log_EntriesDAO trening_dane;
     Log_performedDAO trening_data;
+    ExercisesDAO spis_cwiczen;
+
     ImageButton btn_exercises_list = null;
     Button add_set = null;
-    ExercisesDAO spis_cwiczen;
     AlertDialog exercisesListDialog;
-    MainActivity mActivity = null;
+
     Cursor c;
     Cursor oldCursor;
-    TextView machineEdit;
+
     Cursor help;
     CheckBox restTimeCheck;
     EditText restTimeEdit;
 
+
+    TextView machineEdit;
     TextView text_set;
     TextView text_reps;
     TextView text_weight;
@@ -124,7 +128,7 @@ public class TrainingFragment extends Fragment {
             }
 
 
-                CountdownDialogbox cdd = new CountdownDialogbox(mActivity, restTime);
+                CountdownDialogbox cdd = new CountdownDialogbox(getActivity(), restTime);
                 cdd.show();
             }
         };
