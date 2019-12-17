@@ -46,7 +46,7 @@ public class Log_EntriesDAO extends DAO_database{
     public Cursor showDetails(String cwiczenie){
         ArrayList<Exercises> exercisesList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "select le.Exercise_id, le.Set_number, le.Reps, le.Weight, lp.Date from Log_entries le, Log_performed lp where Exercise_id="+ cwiczenie +" and Date ='2019-11-29'";
+        String query = "select le.Exercise_id, le.Set_number, le.Reps, le.Weight, lp.Date from Log_entries le, Log_performed lp where Exercise_id="+ cwiczenie +" and Date ='2019-12-16'";
         return getDetailsInfo(query);
     }
 

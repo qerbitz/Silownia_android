@@ -12,10 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.silownia.DAO.ExercisesDAO;
 import com.example.silownia.DAO.Log_EntriesDAO;
 import com.example.silownia.R;
 

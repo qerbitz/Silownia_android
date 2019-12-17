@@ -1,7 +1,5 @@
 package com.example.silownia.Fragments;
 
-import android.app.ListActivity;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,18 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.silownia.DAO.ExercisesDAO;
-import com.example.silownia.MainActivity;
 import com.example.silownia.R;
 import com.example.silownia.models.Belongs_to;
 import com.example.silownia.models.Exercises;
@@ -35,16 +28,11 @@ public class HistoryFragment  extends Fragment implements AdapterView.OnItemSele
 
     SQLiteDatabase sqLiteDatabase;
     ExercisesDAO cwiczenie;
-    HistoryDetails historia = null;
     Cursor cursor;
     ListView listView;
     ListAdapters listAdapter;
 
-    Spinner dateList = null;
-    Spinner exerciseList = null;
 
-    List<String> mExerciseArray = null;
-    List<String> mDateArray = null;
 
     public Spinner spiner;
     public int exercise_ID;

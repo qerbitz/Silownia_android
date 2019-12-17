@@ -25,7 +25,7 @@ public class ListAdapters extends ArrayAdapter {
     }
 
     static class LayoutHandler{
-        TextView NAME,CATEGORY;
+        TextView AJDI,NAME;
     }
 
     @Override
@@ -55,8 +55,8 @@ public class ListAdapters extends ArrayAdapter {
             LayoutInflater layoutInflater=(LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row=layoutInflater.inflate(R.layout.row_layout,parent,false);
             layoutHandler = new LayoutHandler();
-            layoutHandler.NAME=(TextView)row.findViewById(R.id.text_set);
-            layoutHandler.CATEGORY=(TextView)row.findViewById(R.id.text_reps);
+            layoutHandler.AJDI=(TextView)row.findViewById(R.id.text_set);
+            layoutHandler.NAME=(TextView)row.findViewById(R.id.text_reps);
             row.setTag(layoutHandler);
         }else{
             layoutHandler=(LayoutHandler)row.getTag();
@@ -64,8 +64,8 @@ public class ListAdapters extends ArrayAdapter {
 
         //Exercises exercise =(Exercises)this.getItem(position);
         Belongs_to nalezy =(Belongs_to)this.getItem(position);
-        layoutHandler.NAME.setText(nalezy.getCwiczenie().getExercise_name());
-        layoutHandler.CATEGORY.setText(nalezy.getTrening().getWorkout_name());
+        layoutHandler.AJDI.setText(nalezy.getCwiczenie().getExercise_name());
+        layoutHandler.NAME.setText(nalezy.getTrening().getWorkout_name());
 
         i++;
         return row;
