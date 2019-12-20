@@ -6,18 +6,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.silownia.DAO.Log_EntriesDAO;
+import com.example.silownia.DAO.Log_performedDAO;
 import com.example.silownia.R;
 
-public class HistoryDetails extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
+
+public class HistoryDetails extends Fragment implements AdapterView.OnItemSelectedListener{
 
     TextView text_set;
     TextView text_reps;
@@ -25,13 +29,14 @@ public class HistoryDetails extends Fragment {
     TableLayout tableLayout;
     TableRow tableRow;
     Cursor cursor;
+    Cursor cursor_date;
 
     SQLiteDatabase sqLiteDatabase;
     Log_EntriesDAO historia;
+    Log_performedDAO completed_training;
 
-    int help = 1;
 
-    String passedVar=null;
+    Spinner spiner_date;
 
 
 
@@ -39,41 +44,62 @@ public class HistoryDetails extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.history_details, container, false);
 
-
         text_set = view.findViewById(R.id.text_set);
         text_reps = view.findViewById(R.id.text_reps);
         text_weight = view.findViewById(R.id.text_weight);
         tableLayout = view.findViewById(R.id.tableLayout);
-        show_details_log();
+        spiner_date = view.findViewById(R.id.spiner_date);
+        spinner_date();
 
         return view;
     }
 
-    public void show_details_log() {
+    public void spinner_date(){
+        spiner_date.setOnItemSelectedListener(this);
+
+        completed_training = new Log_performedDAO(getContext());
+        sqLiteDatabase=completed_training.getReadableDatabase();
+
+        List<String> list_date = new ArrayList<>();     //lista z datami treningów
+
+        cursor_date = completed_training.getDateList();
+
+        if (cursor_date.moveToFirst())
+        {
+                do{
+                    String data = cursor_date.getString(0);
+                    list_date.add(data);                                //dodawanie daty do naszej listy
+                }
+                while (cursor_date.moveToNext());
+        }
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, list_date);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spiner_date.setAdapter(dataAdapter);
+    }
+
+    public void show_details_log(String data) {
+        if(cursor==null){
+            tableLayout.removeAllViews();
+        }
 
         historia=new Log_EntriesDAO(getContext());
         sqLiteDatabase=historia.getReadableDatabase();
 
-        Bundle b = this.getArguments();
-        if(b != null){
-            int i = b.getInt("YourKey");
-            String s =b.getString("Key");
-        }
 
+         Bundle b = this.getArguments();        //pobranie id z list view
+         int ajdi = b.getInt("ajdi");       //przypisanie tego id do szukanego
 
-        cursor=historia.showDetails("5");
-
-        Toast toast=Toast.makeText(getContext(),"Hello "+passedVar,Toast.LENGTH_SHORT);
-        toast.setMargin(50,50);
-        toast.show();
+        cursor = historia.showDetails(ajdi, data);
 
         if (cursor.moveToFirst()) {
 
             do {
                 String set, reps, weight;
-                set = cursor.getString(0);
-                reps = cursor.getString(1);
-                weight = cursor.getString(2);
+                set = cursor.getString(1);
+                reps = cursor.getString(2);
+                weight = cursor.getString(3);
 
                 tableRow = new TableRow(getContext());
 
@@ -97,11 +123,16 @@ public class HistoryDetails extends Fragment {
 
     }
 
-    public int getHelp() {
-        return help;
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        cursor = null;
+        String data = spiner_date.getSelectedItem().toString();
+        show_details_log(data);
+
     }
 
-    public void setHelp(int help) {
-        this.help = help;
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

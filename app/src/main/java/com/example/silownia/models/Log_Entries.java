@@ -6,16 +6,14 @@ public class Log_Entries {
     private int Set_number;
     private float Weight;
     private int Reps;
-    private int Time;
 
 
-    public Log_Entries(int entries_id, Log_performed trening, int set_number, float weight, int reps, int time) {
+    public Log_Entries(int entries_id, Log_performed trening, int set_number, float weight, int reps) {
         Entries_id = entries_id;
         this.trening = trening;
         Set_number = set_number;
         Weight = weight;
         Reps = reps;
-        Time = time;
     }
 
     public int getEntries_id() {
@@ -58,11 +56,4 @@ public class Log_Entries {
         Reps = reps;
     }
 
-    public int getTime() {
-        return Time;
-    }
-
-    public void setTime(int time) {
-        Time = time;
-    }
 }

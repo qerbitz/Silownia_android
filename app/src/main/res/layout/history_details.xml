@@ -3,7 +3,37 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:stretchColumns="1">
+
+            <TableRow
+                android:id="@+id/tableRowFilterMachine"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/textviewfilterDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date" />
+
+                <Spinner
+                    android:id="@+id/spiner_date"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+
+            </TableRow>
+
+        </TableLayout>
+    </androidx.cardview.widget.CardView>
 
         <TableLayout
             android:id="@+id/tableLayout"

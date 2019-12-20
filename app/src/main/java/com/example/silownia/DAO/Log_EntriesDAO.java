@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.silownia.models.Exercises;
-import com.example.silownia.models.Log_Entries;
-import com.example.silownia.models.Log_performed;
 
 import java.util.ArrayList;
 
@@ -17,7 +15,6 @@ public class Log_EntriesDAO extends DAO_database{
     private Log_performedDAO nowy_tren;
 
     public static final String TABLE_NAME = "Log_Entries";
-    public static final String TABLE_NAME_1 = "Log_Entries";
     public static final String KEY = "Entries_id";
     public static final String LOG = "Log_id";
     public static final String SET_NUMBER = "Set_number";
@@ -29,7 +26,7 @@ public class Log_EntriesDAO extends DAO_database{
         super(context);
     }
 
-    public void addTrening(int log, int set_number, float weight, int reps, int exercise_id){
+    public void addTrening(int log, int set_number, int reps, float weight, int exercise_id){
         SQLiteDatabase db=this.getWritableDatabase();
 
         ContentValues contentValues=new ContentValues();
@@ -43,10 +40,10 @@ public class Log_EntriesDAO extends DAO_database{
         db.insert(TABLE_NAME,null,contentValues);
     }
 
-    public Cursor showDetails(String cwiczenie){
+    public Cursor showDetails(int cwiczenie, String data){
         ArrayList<Exercises> exercisesList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "select le.Exercise_id, le.Set_number, le.Reps, le.Weight, lp.Date from Log_entries le, Log_performed lp where Exercise_id="+ cwiczenie +" and Date ='2019-12-16'";
+        String query = "select distinct le.Exercise_id, le.Set_number, le.Reps, le.Weight, lp.Date from Log_entries le, Log_performed lp where Exercise_id="+ cwiczenie +" and Date ='"+data+"'";
         return getDetailsInfo(query);
     }
 

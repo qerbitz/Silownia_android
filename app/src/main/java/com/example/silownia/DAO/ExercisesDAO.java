@@ -21,21 +21,12 @@ public class ExercisesDAO extends DAO_database{
         super(context);
     }
 
-    public Cursor getAllData(){
+
+    public Cursor getExercisesList(int workout_id){
         ArrayList<Exercises> exercisesList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-
-        String query = "Select e._id, e.Exercise_name, w.Workout_name from Exercises e, Belongs_to b, Workouts w where w.Workout_id=b.Workout_id and e._id=b.Exercise_id and w.Workout_id=1";
-
+        String query = "select e._id, e.Exercise_name, w.Workout_name from Exercises e, Belongs_to b, Workouts w where w.Workout_id=b.Workout_id and e._id=b.Exercise_id and w.Workout_id="+workout_id;
         return getExercisesListCursor(query);
-    }
-
-    public Cursor getFilteredRecords(){
-        ArrayList<Exercises> exercisesList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "select e._id, e.Exercise_name, w.Workout_name from Exercises e, Belongs_to b, Workouts w where w.Workout_id=b.Workout_id and e._id=b.Exercise_id and w.Workout_id=2";
-        return getExercisesListCursor(query);
-
     }
 
     public Cursor getExercisesListCursor(String pRequest){

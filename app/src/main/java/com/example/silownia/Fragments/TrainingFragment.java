@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,9 @@ import com.example.silownia.MainActivity;
 import com.example.silownia.R;
 import com.example.silownia.models.Exercises;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class TrainingFragment extends Fragment {
@@ -60,10 +63,13 @@ public class TrainingFragment extends Fragment {
     TableLayout tableLayout;
     TableRow tableRow;
 
+    List list_set = new ArrayList();
+    List list_reps = new ArrayList();
+    List list_weight = new ArrayList();
+
 
 
     int i = 1;
-
 
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,8 +93,8 @@ public class TrainingFragment extends Fragment {
 
         text_set= view. findViewById(R.id.text_set);
         text_reps= view.findViewById(R.id.text_reps);
-        text_weight= view. findViewById(R.id.text_weight);
-        tableLayout = view. findViewById(R.id.tableLayout);
+        text_weight= view.findViewById(R.id.text_weight);
+        tableLayout = view.findViewById(R.id.tableLayout);
 
         trening_dane = new Log_EntriesDAO(getContext());
         trening_data = new Log_performedDAO(getContext());
@@ -117,8 +123,6 @@ public class TrainingFragment extends Fragment {
             tableRow.addView(text_weight);
             tableLayout.addView(tableRow);
 
-            editSerie.setText(String.valueOf(i + 1));
-            i++;
 
 
             if (restTimeCheck.isChecked()) {
@@ -135,6 +139,15 @@ public class TrainingFragment extends Fragment {
                 CountdownDialogbox cdd = new CountdownDialogbox(getActivity(), restTime);
                 cdd.show();
             }
+
+            list_set.add(text_set.getText().toString());
+            list_reps.add(text_reps.getText().toString());
+            list_weight.add(text_weight.getText().toString());
+
+            editSerie.setText(String.valueOf(i + 1));
+            i++;
+
+
         }
         };
 
@@ -147,9 +160,28 @@ public class TrainingFragment extends Fragment {
                     .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            trening_dane.addTrening(5, Integer.parseInt(editSerie.getText().toString()), Integer.parseInt(editRepetition.getText().toString()), Integer.parseInt(editWeight.getText().toString()),getExercise_ID());
+                            trening_data.addLog(1);
+                            int help = list_set.size();
+                            for(int i=0; i<help;i++) {
+
+                                String seria = list_set.get(i).toString();
+                                String reps = list_reps.get(i).toString();
+                                String weight = list_weight.get(i).toString();
+
+                                int seria1 = Integer.parseInt(seria.trim());
+                                int reps1 = Integer.parseInt(reps.trim());
+                                float weight1 = Float.parseFloat(weight.trim());
+                                //Log.d("MyApp","I am here "+seria1+" "+reps1+" "+weight1);
+                                //Log.d("MyApp","Rozmiar "+help);
+                                trening_dane.addTrening(5,seria1,reps1,weight1,getExercise_ID());
+
+                            }
+
                             tableLayout.removeAllViews();
                             editSerie.setText("1");
+                            list_set.clear();           //czyszczenie list
+                            list_reps.clear();          //czyszczenie list
+                            list_weight.clear();        //czyszczenie list
                         }
                     })
                     .setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -175,7 +207,7 @@ public class TrainingFragment extends Fragment {
 
             spis_cwiczen = new ExercisesDAO(v.getContext());
             sqLiteDatabase = spis_cwiczen.getReadableDatabase();
-            c = spis_cwiczen.getAllData();
+            c = spis_cwiczen.getExercisesList(1);
 
 
             if (exercisesList.getAdapter() == null) {

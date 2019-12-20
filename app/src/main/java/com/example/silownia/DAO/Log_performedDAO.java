@@ -2,9 +2,9 @@ package com.example.silownia.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.silownia.models.Log_performed;
 import java.util.Calendar;
 
 
@@ -33,4 +33,17 @@ public class Log_performedDAO extends DAO_database {
 
         db.insert(TABLE_NAME,null,contentValues);
     }
+
+    public Cursor getDateList(){
+        String query = "select distinct Date from Log_performed ORDER BY Date DESC;";
+        return getDateListCursor(query);
+    }
+
+    public Cursor getDateListCursor(String pRequest){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        return db.rawQuery(pRequest, null);
+    }
+
+
 }

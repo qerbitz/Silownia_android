@@ -18,6 +18,10 @@ public class Log_performed {
         this.data = data;
     }
 
+    public Log_performed(Date data) {
+        this.data = data;
+    }
+
 
     public int getLog_id() {
         return Log_id;
