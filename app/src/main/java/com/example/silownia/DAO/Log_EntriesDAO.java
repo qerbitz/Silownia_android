@@ -5,14 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.silownia.models.Exercises;
-
-import java.util.ArrayList;
-
-
 public class Log_EntriesDAO extends DAO_database{
 
-    private Log_performedDAO nowy_tren;
 
     public static final String TABLE_NAME = "Log_Entries";
     public static final String KEY = "Entries_id";
@@ -41,14 +35,11 @@ public class Log_EntriesDAO extends DAO_database{
     }
 
     public Cursor showDetails(int cwiczenie, String data){
-        ArrayList<Exercises> exercisesList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
         String query = "select distinct le.Exercise_id, le.Set_number, le.Reps, le.Weight, lp.Date from Log_entries le, Log_performed lp where Exercise_id="+ cwiczenie +" and Date ='"+data+"'";
         return getDetailsInfo(query);
     }
 
     public Cursor getDetailsInfo(String pRequest){
-        ArrayList<Exercises> exercisesList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
         return db.rawQuery(pRequest, null);

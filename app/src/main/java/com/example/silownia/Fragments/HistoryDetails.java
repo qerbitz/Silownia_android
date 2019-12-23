@@ -3,6 +3,7 @@ package com.example.silownia.Fragments;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
     Cursor cursor_date;
 
     SQLiteDatabase sqLiteDatabase;
-    Log_EntriesDAO historia;
+    Log_EntriesDAO historia=null;
     Log_performedDAO completed_training;
 
 
@@ -49,8 +50,8 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
         text_weight = view.findViewById(R.id.text_weight);
         tableLayout = view.findViewById(R.id.tableLayout);
         spiner_date = view.findViewById(R.id.spiner_date);
-        spinner_date();
 
+        spinner_date();
         return view;
     }
 
@@ -80,13 +81,12 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
     }
 
     public void show_details_log(String data) {
-        if(cursor==null){
-            tableLayout.removeAllViews();
-        }
 
+        cursor=null;
+        historia=null;
         historia=new Log_EntriesDAO(getContext());
         sqLiteDatabase=historia.getReadableDatabase();
-
+        tableLayout.removeAllViews();
 
          Bundle b = this.getArguments();        //pobranie id z list view
          int ajdi = b.getInt("ajdi");       //przypisanie tego id do szukanego
@@ -94,7 +94,6 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
         cursor = historia.showDetails(ajdi, data);
 
         if (cursor.moveToFirst()) {
-
             do {
                 String set, reps, weight;
                 set = cursor.getString(1);
@@ -116,6 +115,8 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
                 tableRow.addView(text_weight);
                 tableLayout.addView(tableRow);
 
+                String TAG = "MyActivity";
+                Log.i(TAG, "Cursoser rozmiarek "+cursor.getCount());
             }
             while (cursor.moveToNext());
         }
@@ -125,14 +126,17 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        cursor = null;
+        String TAG = "MyActivity";
+        Log.i(TAG, "Przejscie do funkcji ");
         String data = spiner_date.getSelectedItem().toString();
-        show_details_log(data);
-
+        if(position!=0)
+        {
+            tableLayout.removeAllViews();
+            show_details_log(data);
+        }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }
