@@ -9,35 +9,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.silownia.DAO.Log_EntriesDAO;
 import com.example.silownia.DAO.Log_performedDAO;
 import com.example.silownia.R;
+import com.example.silownia.models.Log_Entries;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryDetails extends Fragment implements AdapterView.OnItemSelectedListener{
 
-    TextView text_set;
-    TextView text_reps;
-    TextView text_weight;
-    TableLayout tableLayout;
-    TableRow tableRow;
+
     Cursor cursor;
     Cursor cursor_date;
 
     SQLiteDatabase sqLiteDatabase;
     Log_EntriesDAO historia=null;
+    Log_Entries details = null;
     Log_performedDAO completed_training;
 
 
     Spinner spiner_date;
+
+    ListView listView;
+    ListAdapter_details listAdapter_details;
 
 
 
@@ -45,15 +45,15 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.history_details, container, false);
 
-        text_set = view.findViewById(R.id.text_set);
-        text_reps = view.findViewById(R.id.text_reps);
-        text_weight = view.findViewById(R.id.text_weight);
-        tableLayout = view.findViewById(R.id.tableLayout);
         spiner_date = view.findViewById(R.id.spiner_date);
+
+        listView=view.findViewById(R.id.list_details);
+        listAdapter_details = new ListAdapter_details(getContext(), R.layout.row_exercise_test);
 
         spinner_date();
         return view;
     }
+
 
     public void spinner_date(){
         spiner_date.setOnItemSelectedListener(this);
@@ -80,60 +80,47 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
         spiner_date.setAdapter(dataAdapter);
     }
 
-    public void show_details_log(String data) {
+    public void show_details_log() {
 
+        String data = spiner_date.getSelectedItem().toString();
         cursor=null;
         historia=null;
         historia=new Log_EntriesDAO(getContext());
         sqLiteDatabase=historia.getReadableDatabase();
-        tableLayout.removeAllViews();
 
          Bundle b = this.getArguments();        //pobranie id z list view
          int ajdi = b.getInt("ajdi");       //przypisanie tego id do szukanego
 
         cursor = historia.showDetails(ajdi, data);
+        listAdapter_details = new ListAdapter_details(getContext(), R.layout.row_exercise_test);
+        listView.setAdapter(listAdapter_details);
 
-        if (cursor.moveToFirst()) {
+        if(cursor==null || cursor.getCount()==0){
+            listView.setAdapter(null);
+        }
+        else if (cursor.moveToFirst()) {
             do {
-                String set, reps, weight;
-                set = cursor.getString(1);
-                reps = cursor.getString(2);
-                weight = cursor.getString(3);
-
-                tableRow = new TableRow(getContext());
-
-                text_set = new TextView(getContext());
-                text_reps = new TextView(getContext());
-                text_weight = new TextView(getContext());
-
-                text_set.setText(set);
-                text_reps.setText(reps);
-                text_weight.setText(weight);
-
-                tableRow.addView(text_set);
-                tableRow.addView(text_reps);
-                tableRow.addView(text_weight);
-                tableLayout.addView(tableRow);
+                Integer set, reps;
+                Float weight;
+                set = cursor.getInt(1);
+                reps = cursor.getInt(2);
+                weight = cursor.getFloat(3);
+                Log_Entries details = new Log_Entries(set,reps,weight);
+                listAdapter_details.add(details);
 
                 String TAG = "MyActivity";
-                Log.i(TAG, "Cursoser rozmiarek "+cursor.getCount());
+                Log.i(TAG, "Rozmiareeeeekkkk "+cursor.getCount());
             }
             while (cursor.moveToNext());
         }
 
-
     }
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String TAG = "MyActivity";
-        Log.i(TAG, "Przejscie do funkcji ");
-        String data = spiner_date.getSelectedItem().toString();
-        if(position!=0)
-        {
-            tableLayout.removeAllViews();
-            show_details_log(data);
-        }
+        show_details_log();
+
     }
 
     @Override

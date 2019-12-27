@@ -16,6 +16,12 @@ public class Log_Entries {
         Reps = reps;
     }
 
+    public Log_Entries (int set_number, int reps, float weight) {
+        Set_number = set_number;
+        Weight = weight;
+        Reps = reps;
+    }
+
     public int getEntries_id() {
         return Entries_id;
     }

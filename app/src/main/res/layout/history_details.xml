@@ -33,43 +33,13 @@
             </TableRow>
 
         </TableLayout>
+
     </androidx.cardview.widget.CardView>
 
-        <TableLayout
-            android:id="@+id/tableLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:shrinkColumns="*"
-            android:stretchColumns="*">
-
-            <TableRow
-                android:id="@+id/tableRow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/text_set"
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:text="Set number"
-                    android:textStyle="bold"></TextView>
-
-                <TextView
-                    android:id="@+id/text_reps"
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Reps"></TextView>
-
-                <TextView
-                    android:id="@+id/text_weight"
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Weight"></TextView>
-
-            </TableRow>
-        </TableLayout>
+    <ListView
+        android:id="@+id/list_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>
