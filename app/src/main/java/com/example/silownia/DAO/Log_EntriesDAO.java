@@ -14,7 +14,8 @@ public class Log_EntriesDAO extends DAO_database{
     public static final String SET_NUMBER = "Set_number";
     public static final String WEIGHT = "Weight";
     public static final String REPS = "Reps";
-    public static final String EXERCISE_ID = "Exercise_id";
+    public static final String EXERCISE_ID = "_id";
+
 
     public Log_EntriesDAO(Context context) {
         super(context);
@@ -35,7 +36,7 @@ public class Log_EntriesDAO extends DAO_database{
     }
 
     public Cursor showDetails(int cwiczenie, String data){
-        String query = "select distinct le.Exercise_id, le.Set_number, le.Reps, le.Weight, lp.Date from Log_entries le, Log_performed lp where Exercise_id="+ cwiczenie +" and Date ='"+data+"'";
+        String query = "select distinct le._id, le.Set_number, le.Reps, le.Weight, lp.Date from Log_entries le, Log_performed lp where _id="+ cwiczenie +" and Date ='"+data+"' and lp.Log_id = le.Log_id";
         return getDetailsInfo(query);
     }
 

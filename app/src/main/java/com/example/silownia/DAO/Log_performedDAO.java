@@ -39,6 +39,11 @@ public class Log_performedDAO extends DAO_database {
         return getDateListCursor(query);
     }
 
+    public Cursor getLastLog(){
+        String query = "select log_id from Log_performed order by log_id desc;";
+        return getDateListCursor(query);
+    }
+
     public Cursor getDateListCursor(String pRequest){
         SQLiteDatabase db = this.getReadableDatabase();
 

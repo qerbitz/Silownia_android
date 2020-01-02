@@ -151,6 +151,15 @@ public class TrainingFragment extends Fragment {
         }
         };
 
+    int return_log(){
+        Cursor c = trening_data.getLastLog();
+        int last_log = 0;
+        if(c.moveToFirst()){
+            last_log = c.getInt(0);
+        }
+        return last_log;
+    }
+
     private View.OnClickListener onClickAddTraining = new View.OnClickListener(){                        //Dodanie cwiczenia po przycisku
         @Override
         public void onClick(View v) {
@@ -171,9 +180,7 @@ public class TrainingFragment extends Fragment {
                                 int seria1 = Integer.parseInt(seria.trim());
                                 int reps1 = Integer.parseInt(reps.trim());
                                 float weight1 = Float.parseFloat(weight.trim());
-                                //Log.d("MyApp","I am here "+seria1+" "+reps1+" "+weight1);
-                                //Log.d("MyApp","Rozmiar "+help);
-                                trening_dane.addTrening(5,seria1,reps1,weight1,getExercise_ID());
+                                trening_dane.addTrening(return_log(),seria1,reps1,weight1,getExercise_ID());
 
                             }
 

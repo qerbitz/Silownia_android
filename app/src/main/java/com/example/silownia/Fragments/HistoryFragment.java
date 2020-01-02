@@ -101,7 +101,6 @@ public class HistoryFragment  extends Fragment implements AdapterView.OnItemSele
             cursor=cwiczenie.getExercisesList(workout_id);
             listAdapter = new ListAdapters(getContext(), R.layout.row_layout);
             listView.setAdapter(listAdapter);
-
             if(cursor.moveToFirst())
             {
 
