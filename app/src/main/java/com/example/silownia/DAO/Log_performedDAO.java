@@ -34,8 +34,8 @@ public class Log_performedDAO extends DAO_database {
         db.insert(TABLE_NAME,null,contentValues);
     }
 
-    public Cursor getDateList(){
-        String query = "select distinct Date from Log_performed ORDER BY Date DESC;";
+    public Cursor getDateList(int ajdi){
+        String query = "select distinct lp.Date from Log_performed lp, Log_Entries le where le.Log_id=lp.Log_id AND le._id ="+ajdi+" ORDER BY Date DESC;";
         return getDateListCursor(query);
     }
 

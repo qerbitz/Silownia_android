@@ -62,7 +62,6 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
         historia = new Log_EntriesDAO(view.getContext());
 
         mDateArray = new ArrayList<>();
-        mDateArray.add("All".toString());
         mAdapterDate = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item,
                 mDateArray);
         mAdapterDate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -76,7 +75,7 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
 
         dateList.setOnItemSelectedListener(this);
         completed_training = new Log_performedDAO(getContext());
-        cursor_date = completed_training.getDateList();
+        cursor_date = completed_training.getDateList(ajdi_exercise);
 
         if (cursor_date.moveToFirst())
         {
@@ -116,8 +115,7 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
         View fragmentView = getView();
         if(fragmentView != null){
             mDateArray.clear();
-            mDateArray.add("All".toString());
-            cursor_date = completed_training.getDateList();
+            cursor_date = completed_training.getDateList(ajdi_exercise);
 
             if (cursor_date.moveToFirst())
             {
