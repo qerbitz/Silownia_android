@@ -40,7 +40,7 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
 
     int ajdi_exercise=-1;
 
-
+TextView textView1;
 
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,6 +56,8 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
         text_reps = view.findViewById(R.id.text_reps);
         text_weight = view.findViewById(R.id.text_weight);
 
+        textView1= view.findViewById(R.id.textView1);
+        //textView1.setText("xddd");
 
 
         completed_training = new Log_performedDAO(view.getContext());
@@ -85,6 +87,9 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
                 }
                 while (cursor_date.moveToNext());
         }
+        else{
+            dateList.setVisibility(View.INVISIBLE);
+        }
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, mDateArray);
@@ -95,8 +100,18 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
     private void show_details_log(Integer ajdi, String data) {
         Cursor oldCursor = null;
 
-
+        Float suma = Float.valueOf(0);
+        Float max = Float.valueOf(0);
+        Float max2 = Float.valueOf(0);
         Cursor c =  historia.showDetails(ajdi, data);
+        if (c.moveToFirst()) {
+            max2 = c.getFloat(2);
+            max = c.getFloat(3);
+            do{
+                suma+=c.getFloat(3); //Suma obciazenia na treningu
+            }while (c.moveToNext());
+        }
+
         if(c == null || c.getCount() == 0){
             listView.setAdapter(null);
         }else{
@@ -109,6 +124,8 @@ public class HistoryDetails extends Fragment implements AdapterView.OnItemSelect
                     oldCursor.close();
             }
         }
+        Double sumka = (max*max2*0.0333)+max;
+        textView1.setText("laczna suma "+sumka);
     }
 
     private void refreshDates(){

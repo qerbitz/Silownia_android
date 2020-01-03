@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.silownia.models.Exercises;
+import com.example.silownia.models.Log_Entries;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,11 @@ public class ExercisesDAO extends DAO_database{
         ArrayList<Exercises> exercisesList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "select e._id, e.Exercise_name, w.Workout_name from Exercises e, Belongs_to b, Workouts w where w.Workout_id=b.Workout_id and e._id=b.Exercise_id and w.Workout_id="+workout_id;
+        return getExercisesListCursor(query);
+    }
+
+    public Cursor getLastWeight(int ajdi){
+        String query = "select le.weight from Log_Entries le, Log_performed lp where le._id="+ajdi+" and le.Log_id=lp.Log_id order by le.Log_id desc;";
         return getExercisesListCursor(query);
     }
 

@@ -62,6 +62,7 @@ public class TrainingFragment extends Fragment {
     TextView text_weight;
     TableLayout tableLayout;
     TableRow tableRow;
+    TextView maxText;
 
     List list_set = new ArrayList();
     List list_reps = new ArrayList();
@@ -102,6 +103,8 @@ public class TrainingFragment extends Fragment {
         restTimeCheck = view.findViewById(R.id.restTimecheckBox);
         restTimeEdit = view.findViewById(R.id.editRestTime);
 
+
+        maxText = view.findViewById(R.id.maxText);
         return view;
     }
 
@@ -235,6 +238,9 @@ public class TrainingFragment extends Fragment {
 
                 if (exercisesListDialog.isShowing()) {
                     machineEdit.setText(nazwa.getExercise_name());
+                    maxText.setText(last_weight().toString());
+                    Double next_weight = last_weight()+2.5;
+                    editWeight.setText(next_weight.toString());
                     exercisesListDialog.dismiss();
                 }
 
@@ -251,7 +257,14 @@ public class TrainingFragment extends Fragment {
 
     };
 
-
+    private Float last_weight(){
+        Cursor c =  spis_cwiczen.getLastWeight(getExercise_ID());
+        Float ostatni = Float.valueOf(0);
+        if (c.moveToFirst()) {
+           ostatni = c.getFloat(0);
+        }
+        return ostatni;
+    }
 
     public int getExercise_ID() {
         return exercise_ID;

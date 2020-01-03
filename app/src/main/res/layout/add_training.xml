@@ -209,15 +209,13 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:text="Min" />
+                            android:paddingRight="5dp" />
 
                         <TextView
                             android:id="@+id/minText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="40 kg" />
+                            android:gravity="center" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -225,14 +223,13 @@
                             android:gravity="center"
                             android:paddingStart="20dp"
                             android:paddingEnd="5dp"
-                            android:text="Max" />
+                            android:text="Last training" />
 
                         <TextView
                             android:id="@+id/maxText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="80 kg" />
+                            android:gravity="center" />
 
                     </LinearLayout>
                 </LinearLayout>
