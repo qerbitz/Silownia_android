@@ -71,10 +71,15 @@ public class TrainingFragment extends Fragment {
 
 
     int i = 1;
+    int ajdi_workout=-1;
 
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_training, container, false);
+
+
+        Bundle args = this.getArguments();              //pobranie id z list view
+        ajdi_workout = args.getInt("ajdi_training");
 
         editSerie = view.findViewById(R.id.editSerie);                                              //
         editRepetition = view.findViewById(R.id.editRepetition);                                    //
@@ -217,7 +222,9 @@ public class TrainingFragment extends Fragment {
 
             spis_cwiczen = new ExercisesDAO(v.getContext());
             sqLiteDatabase = spis_cwiczen.getReadableDatabase();
-            c = spis_cwiczen.getExercisesList(1);
+
+
+            c = spis_cwiczen.getExercisesList(ajdi_workout);
 
 
             if (exercisesList.getAdapter() == null) {

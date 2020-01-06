@@ -19,7 +19,7 @@ import java.util.List;
 public class ListAdapters extends ArrayAdapter {
 
     List list = new ArrayList();
-    public int i =0;
+    public int i = 0;
     public ListAdapters(Context context, int resource){
         super(context,resource);
     }
@@ -65,6 +65,7 @@ public class ListAdapters extends ArrayAdapter {
         //Exercises exercise =(Exercises)this.getItem(position);
         Belongs_to nalezy =(Belongs_to)this.getItem(position);
         layoutHandler.AJDI.setText(nalezy.getCwiczenie().getExercise_name());
+
         layoutHandler.NAME.setText(nalezy.getTrening().getWorkout_name());
 
         i++;

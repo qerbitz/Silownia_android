@@ -21,6 +21,7 @@
         <activity android:name=".Fragments.HistoryFragment" />
         <activity android:name=".Fragments.TrainingFragment" />
         <activity android:name=".Fragments.HistoryDetails" />
+
     </application>
 
 </manifest>

@@ -35,7 +35,7 @@ public class RecordCursorAdapter extends CursorAdapter {
 
         text_set.setText(cursor.getString(cursor.getColumnIndex(Log_EntriesDAO.SET_NUMBER)));
         text_reps.setText(cursor.getString(cursor.getColumnIndex(Log_EntriesDAO.REPS)));
-        text_weight.setText(cursor.getString(cursor.getColumnIndex(Log_EntriesDAO.WEIGHT)));
+        text_weight.setText(cursor.getString(cursor.getColumnIndex(Log_EntriesDAO.WEIGHT))+" KG");
 
     }
 
