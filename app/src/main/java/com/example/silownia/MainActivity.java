@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.example.silownia.Fragments.HistoryFragment;
 import com.example.silownia.Fragments.TrainingFragment;
+import com.example.silownia.Fragments.WeightFragment;
 import com.example.silownia.Others.CustomAdapter;
 import com.example.silownia.Others.MyData;
 import com.example.silownia.models.DataModel;
@@ -102,9 +103,9 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment.setArguments(args);
                             recyclerView.setVisibility(View.GONE);
                             break;
-                        //case R.id.nav_favorites:
-                           // selectedFragment = new FavoritesFragment();
-                           // break;
+                        case R.id.nav_weight:
+                            selectedFragment = new WeightFragment();
+                            break;
                         case R.id.nav_history:
                             selectedFragment = new HistoryFragment();
                             recyclerView.setVisibility(View.GONE);

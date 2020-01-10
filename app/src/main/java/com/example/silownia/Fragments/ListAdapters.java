@@ -62,10 +62,8 @@ public class ListAdapters extends ArrayAdapter {
             layoutHandler=(LayoutHandler)row.getTag();
         }
 
-        //Exercises exercise =(Exercises)this.getItem(position);
         Belongs_to nalezy =(Belongs_to)this.getItem(position);
         layoutHandler.AJDI.setText(nalezy.getCwiczenie().getExercise_name());
-
         layoutHandler.NAME.setText(nalezy.getTrening().getWorkout_name());
 
         i++;

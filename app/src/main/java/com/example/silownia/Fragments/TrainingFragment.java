@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,21 +16,17 @@ import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.silownia.DAO.ExercisesDAO;
 import com.example.silownia.DAO.Log_EntriesDAO;
 import com.example.silownia.DAO.Log_performedDAO;
-import com.example.silownia.MainActivity;
 import com.example.silownia.R;
 import com.example.silownia.models.Exercises;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -99,7 +94,7 @@ public class TrainingFragment extends Fragment {
 
         text_set= view. findViewById(R.id.text_set);
         text_reps= view.findViewById(R.id.text_reps);
-        text_weight= view.findViewById(R.id.text_weight);
+        text_weight= view.findViewById(R.id.text_reps);
         tableLayout = view.findViewById(R.id.tableLayout);
 
         trening_dane = new Log_EntriesDAO(getContext());

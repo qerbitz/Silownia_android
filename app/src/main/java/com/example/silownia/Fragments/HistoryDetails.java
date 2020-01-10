@@ -1,9 +1,7 @@
 package com.example.silownia.Fragments;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,12 +50,13 @@ TextView textView1;
         dateList = view.findViewById(R.id.spiner_date);
         listView=view.findViewById(R.id.list_details);
 
-        text_set = view.findViewById(R.id.text_set);
+       text_set = view.findViewById(R.id.text_set);
         text_reps = view.findViewById(R.id.text_reps);
         text_weight = view.findViewById(R.id.text_weight);
 
         textView1= view.findViewById(R.id.textView1);
         //textView1.setText("xddd");
+        listView.setDivider(null);
 
 
         completed_training = new Log_performedDAO(view.getContext());
@@ -154,12 +153,6 @@ TextView textView1;
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         refreshDates();
-        //if(dateList.getCount()>1){
-         //   dateList.setSelection(1);
-       // }
-       // else {
-       //     dateList.setSelection(0);
-        //}
         if(dateList.getCount()>=1) {
             show_details_log(ajdi_exercise, dateList.getSelectedItem().toString());
         }

@@ -59,5 +59,7 @@ dependencies {
     compile 'androidx.cardview:cardview:1.0.0'
     compile 'androidx.recyclerview:recyclerview:1.0.0'
 
+    implementation 'com.github.hannesa2:MPAndroidChart:3.0.7'
+
 
 }

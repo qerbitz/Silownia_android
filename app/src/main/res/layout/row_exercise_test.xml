@@ -5,10 +5,14 @@
     android:stretchColumns="*"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+
     <TableRow
         android:id="@+id/tableRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+
+
 
         <TextView
             android:id="@+id/text_set"
@@ -25,7 +29,7 @@
             android:text="Reps"></TextView>
 
         <TextView
-            android:id="@+id/text_weight"
+            android:id="@+id/text_reps"
             android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
