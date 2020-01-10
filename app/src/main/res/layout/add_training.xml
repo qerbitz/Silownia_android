@@ -106,17 +106,35 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Sets" />
+                        android:text="Set" />
+
+                    <ImageButton
+                        android:id="@+id/subButton1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        app:srcCompat="@android:drawable/ic_input_add"
+                        android:layout_gravity="center"/>
 
                     <EditText
                         android:id="@+id/editSerie"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:inputType="number"
                         android:minEms="2"
-                        android:text="1" />
+                        android:text="1"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:clickable="false"
+                        />
+
+                    <ImageButton
+                        android:layout_gravity="center"
+                        android:id="@+id/downButton1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        app:srcCompat="@android:drawable/button_onoff_indicator_on" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -139,6 +157,13 @@
                         android:gravity="center"
                         android:text="Reps" />
 
+                    <ImageButton
+                        android:id="@+id/subButton2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        app:srcCompat="@android:drawable/ic_input_add"
+                        android:layout_gravity="center"/>
+
                     <EditText
                         android:id="@+id/editRepetition"
                         android:layout_width="wrap_content"
@@ -148,7 +173,17 @@
                         android:inputType="number"
                         android:minEms="2"
                         android:text="8"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:clickable="false"/>
+
+                    <ImageButton
+                        android:layout_gravity="center"
+                        android:id="@+id/downButton2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        app:srcCompat="@android:drawable/button_onoff_indicator_on" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -172,11 +207,21 @@
                         android:layout_height="wrap_content"
                         android:text="Weight" />
 
+                    <ImageButton
+                        android:id="@+id/subButton3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        app:srcCompat="@android:drawable/ic_input_add"
+                        android:layout_gravity="center"/>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/border"
                         android:orientation="horizontal">
+
+
+
 
                         <EditText
                             android:id="@+id/editWeight"
@@ -185,14 +230,20 @@
                             android:gravity="center"
                             android:inputType="numberDecimal|numberSigned"
                             android:minEms="3"
-                            android:text="50" />
+                            android:text="50"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:clickable="false"/>
 
-                        <Spinner
-                            android:id="@+id/spinnerUnit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:minEms="3" />
+
                     </LinearLayout>
+
+                    <ImageButton
+                        android:layout_gravity="center"
+                        android:id="@+id/downButton3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        app:srcCompat="@android:drawable/button_onoff_indicator_on" />
 
                     <LinearLayout
                         android:id="@+id/minmaxLayout"
@@ -204,26 +255,14 @@
                         android:orientation="horizontal"
                         android:visibility="visible">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp" />
 
                         <TextView
-                            android:id="@+id/minText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center" />
-
-                        <TextView
+                            android:id="@+id/last_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:paddingStart="20dp"
-                            android:paddingEnd="5dp"
-                            android:text="Last training" />
+                            android:paddingEnd="5dp" />
 
                         <TextView
                             android:id="@+id/maxText"
@@ -293,7 +332,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="8dp"
                             android:layout_weight="100"
-                            android:text="Rest tme(sec)" />
+                            android:text="Rest time(sec)" />
 
                         <EditText
                             android:id="@+id/editRestTime"

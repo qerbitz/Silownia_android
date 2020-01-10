@@ -58,15 +58,21 @@ public class TrainingFragment extends Fragment {
     TableLayout tableLayout;
     TableRow tableRow;
     TextView maxText;
+    TextView last_label;
 
     List list_set = new ArrayList();
     List list_reps = new ArrayList();
     List list_weight = new ArrayList();
 
 
-
+    ImageButton subButton1, subButton2,subButton3, downButton1,downButton2, downButton3;
     int i = 1;
     int ajdi_workout=-1;
+
+    String value = null;
+    String value2= null;
+    int value1=0;
+    double value11=0;
 
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -78,7 +84,8 @@ public class TrainingFragment extends Fragment {
 
         editSerie = view.findViewById(R.id.editSerie);                                              //
         editRepetition = view.findViewById(R.id.editRepetition);                                    //
-        editWeight = view.findViewById(R.id.editWeight);                                            //
+        editWeight = view.findViewById(R.id.editWeight);
+
 
         btn_exercises_list = view.findViewById(R.id.btn_exercises_list);
         btn_exercises_list.setOnClickListener(onClickMachineListWithIcons);
@@ -103,10 +110,77 @@ public class TrainingFragment extends Fragment {
         restTimeCheck = view.findViewById(R.id.restTimecheckBox);
         restTimeEdit = view.findViewById(R.id.editRestTime);
 
+        last_label = view.findViewById(R.id.last_label);
+
+        subButton1 = view.findViewById(R.id.subButton1);
+        subButton2 = view.findViewById(R.id.subButton2);
+        subButton3 = view.findViewById(R.id.subButton3);
+
+        downButton1 = view.findViewById(R.id.downButton1);
+        downButton2 = view.findViewById(R.id.downButton2);
+        downButton3 = view.findViewById(R.id.downButton3);
+
+        subButton1.setOnClickListener(buttonsListener);
+        subButton2.setOnClickListener(buttonsListener);
+        subButton3.setOnClickListener(buttonsListener);
+        downButton1.setOnClickListener(buttonsListener);
+        downButton2.setOnClickListener(buttonsListener);
+        downButton3.setOnClickListener(buttonsListener);
 
         maxText = view.findViewById(R.id.maxText);
         return view;
     }
+
+    private View.OnClickListener buttonsListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.subButton1:
+                    value = editSerie.getText().toString();
+                    value1 = Integer.parseInt(value);
+                    value1++;
+                    value2 = String.valueOf(value1);
+                    editSerie.setText(value2);
+                    break;
+                case R.id.subButton2:
+                    value = editRepetition.getText().toString();
+                    value1 = Integer.parseInt(value);
+                    value1++;
+                    value2 = String.valueOf(value1);
+                    editRepetition.setText(value2);
+                    break;
+                case R.id.subButton3:
+                    value = editWeight.getText().toString();
+                    value11 = Float.parseFloat(value);
+                    value11=value11+2.5;
+                    value2 = String.valueOf(value11);
+                    editWeight.setText(value2);
+                    break;
+                case R.id.downButton1:
+                    value = editSerie.getText().toString();
+                    value1 = Integer.parseInt(value);
+                    value1--;
+                    value2 = String.valueOf(value1);
+                    editSerie.setText(value2);
+                    break;
+                case R.id.downButton2:
+                    value = editRepetition.getText().toString();
+                    value1 = Integer.parseInt(value);
+                    value1--;
+                    value2 = String.valueOf(value1);
+                    editRepetition.setText(value2);
+                    break;
+                case R.id.downButton3:
+                    value = editWeight.getText().toString();
+                    value11 = Float.parseFloat(value);
+                    value11=value11-2.5;
+                    value2 = String.valueOf(value11);
+                    editWeight.setText(value2);
+                    break;
+
+            }
+        }
+    };
 
     private View.OnClickListener onClickAddSet = new View.OnClickListener(){                        //Dodanie serii po przycisku
         @Override
@@ -243,6 +317,7 @@ public class TrainingFragment extends Fragment {
                     maxText.setText(last_weight().toString());
                     Double next_weight = last_weight()+2.5;
                     editWeight.setText(next_weight.toString());
+                    last_label.setText("Last training: ");
                     exercisesListDialog.dismiss();
                 }
 
